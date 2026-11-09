@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filmlify</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="#home">🎞 Filmlify</a>
+    <button id="menuBtn" aria-label="Menu">☰</button>   
+    <nav id="mainNav">
+      <a href="#home">Home</a>
+      <a href="#movies">Movies</a>
+      <a href="#tv">TV Shows</a>
+      <a href="#theater">In Theater</a>
+      <a href="#browse">Browse</a>
+      <a href="#profile">Profile</a>
+    </nav>
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="Search movies, shows, actors..." autocomplete="off">
+      <div id="suggestions"></div>   
+    </div>
+    <a class="login-link" href="#login">Login / Sign up</a>
+  </div>
+</header>
+
+<main>
+
+<!-- TIP: every poster is a "card". To use a real poster picture, change
+     <div class="poster"></div>  into
+     <div class="poster" style="background-image:url('posters/name.jpg'); background-size:cover;"></div> -->
+
+<!-- ===================== HOME PAGE ===================== -->
+<div class="page" id="home">
+  <div class="hero" data-title="The Shawshank Redemption">
+    <h1 style="color:var(--accent)">Welcome to Filmlify.</h1>
+    <p style="font-size:20px">Search top-rated blockbusters, trending releases, and hidden gems in seconds.</p>
+  </div>
+
+  <div class="two">
+    <section class="block"><h2>New Releases</h2><div class="row" data-source="/movie/now_playing">
+      <div class="card"><div class="poster"></div><b>By Any Means</b><small>September 4, 2026</small></div>
+      <div class="card"><div class="poster"></div><b>Spider-Man: Brand New Day</b><small>July 29, 2026</small></div>
+      <div class="card"><div class="poster"></div><b>The Odyssey</b><small>July 17, 2026</small></div>
+      <div class="card"><div class="poster"></div><b>Minions &amp; Monsters</b><small>July 1, 2026</small></div>
+    </div></section>
+    <section class="block"><h2>All-Time Greats</h2><div class="row" data-source="/movie/top_rated?page=2">
+      <div class="card"><div class="poster"></div><b>Citizen Kane</b><small>September 5, 1941</small></div>
+      <div class="card"><div class="poster"></div><b>The Shawshank Redemption</b><small>September 23, 1994</small></div>
+      <div class="card"><div class="poster"></div><b>Casablanca</b><small>November 26, 1942</small></div>
+      <div class="card"><div class="poster"></div><b>The Godfather</b><small>March 24, 1972</small></div>
+    </div></section>
+  </div>
+
+  <div class="two">
+    <section class="block"><h2>Friend Activity</h2>
+      <div class="empty">
+        <p><b>No friend activity yet</b></p>
+        <p><small>Follow friends to see their reviews and what they are watching here.</small></p>
+      </div>
+    </section>
+    <section class="block"><h2>Lists For You</h2><div class="box">
+      <div class="item list-link" data-list="crime"><span>Masterpiece Crime Drama</span><small></small></div>
+      <div class="item list-link" data-list="thriller"><span>Psychological Thrillers with Plot Twists</span><small></small></div>
+      <div class="item list-link" data-list="scifi"><span>Essential Sci-fi Cinema</span><small></small></div>
+    </div></section>
+  </div>
+
+  <div class="two">
+    <section class="block"><h2>Top News</h2>
+      <!-- Each news picture comes from TMDB: data-title = a movie/show poster, data-person = a person's photo -->
+      <div class="item with-pic"><div class="pic tall" data-person="Inde Navarrette"></div><b>'Obsession' Star Inde Navarrette Receives IMDb Breakout Award</b></div>
+      <div class="item with-pic"><div class="pic tall" data-title="Monster: The Lizzie Borden Story"></div><b>Netflix's 'Monster' Delivers an Engaging Season</b></div>
+      <div class="item with-pic"><div class="pic tall" data-title="Spider-Man: Brand New Day"></div><b>'Spider-Man: Brand New Day' Becomes Highest-Grossing Opener</b></div>
+    </section>
+    <section class="block"><h2>Trending People</h2><div class="row people" id="peopleRow">
+      <!-- These are shown until TMDB sends the real trending people -->
+      <div class="person"><div class="pic round"></div>Inde Navarrette<br><button class="btn small follow-btn" data-name="Inde Navarrette">Follow</button></div>
+      <div class="person"><div class="pic round"></div>Michael Johnston<br><button class="btn small follow-btn" data-name="Michael Johnston">Follow</button></div>
+      <div class="person"><div class="pic round"></div>Kaya Scodelario<br><button class="btn small follow-btn" data-name="Kaya Scodelario">Follow</button></div>
+      <div class="person"><div class="pic round"></div>Theo James<br><button class="btn small follow-btn" data-name="Theo James">Follow</button></div>
+    </div></section>
+  </div>
+</div>
+
+<!-- ===================== MOVIES PAGE ===================== -->
+<div class="page" id="movies">
+  <div class="two">
+    <section class="block"><h2>Trending Now</h2>
+      <div class="hero" data-title="The Odyssey">
+        <h1>The Odyssey</h1>
+        <p>A new epic arrives on Filmlify.</p>
+        <p>R • Epic, Adventure • 2h 52m • 2026</p>
+        <p>After the Trojan War, Odysseus faces a dangerous voyage back to Ithaca</p>
+        <div><button class="btn add">Add to List</button> <button class="btn outline">More Info</button></div>
+      </div>
+    </section>
+    <section class="block"><h2>Recommended For You</h2><div class="row" data-source="/trending/movie/week">
+      <div class="card"><div class="poster"></div><b>Interstellar</b><small>★ 8.7 • 2014</small></div>
+      <div class="card"><div class="poster"></div><b>Good Will Hunting</b><small>★ 8.4 • 1997</small></div>
+      <div class="card"><div class="poster"></div><b>The Prestige</b><small>★ 8.5 • 2006</small></div>
+      <div class="card"><div class="poster"></div><b>The Green Mile</b><small>★ 8.6 • 1999</small></div>
+    </div></section>
+  </div>
+
+  <div class="two">
+    <section class="block"><h2>Popular Movies</h2><div class="row" data-source="/movie/popular">
+      <div class="card"><div class="poster"></div><b>Parasite</b><small>★ 8.5 • 2019</small></div>
+      <div class="card"><div class="poster"></div><b>La La Land</b><small>★ 8.0 • 2016</small></div>
+      <div class="card"><div class="poster"></div><b>Forrest Gump</b><small>★ 8.8 • 1994</small></div>
+      <div class="card"><div class="poster"></div><b>The Notebook</b><small>★ 7.8 • 2004</small></div>
+    </div></section>
+    <section class="block"><h2>Top Rated</h2><div class="row" data-source="/movie/top_rated">
+      <div class="card"><div class="poster"></div><b>The Shawshank Redemption</b><small>★ 9.3 • 1994</small></div>
+      <div class="card"><div class="poster"></div><b>The Godfather</b><small>★ 9.2 • 1972</small></div>
+      <div class="card"><div class="poster"></div><b>The Dark Knight</b><small>★ 9.1 • 2008</small></div>
+      <div class="card"><div class="poster"></div><b>The Godfather Part II</b><small>★ 9.0 • 1974</small></div>
+    </div></section>
+  </div>
+
+  <div class="two">
+    <section class="block"><h2>Upcoming Releases</h2><div class="row" data-source="/movie/upcoming">
+      <div class="card"><div class="poster"></div><b>Digger</b><small>October 2, 2026</small></div>
+      <div class="card"><div class="poster"></div><b>Dune: Part Three</b><small>December 18, 2026</small></div>
+      <div class="card"><div class="poster"></div><b>Avengers: Doomsday</b><small>December 18, 2026</small></div>
+      <div class="card"><div class="poster"></div><b>Jumanji: Open World</b><small>December 25, 2026</small></div>
+    </div></section>
+    <section class="block"><h2>Film Spotlight</h2><div class="box spotlight" data-title="Oppenheimer">
+      <div class="spot-row">
+        <div class="pic big" data-title="Oppenheimer"></div>
+        <div>
+          <h3>Oppenheimer</h3><p>Directed by Christopher Nolan</p><p class="star">★ 8.2</p><br>
+          <button class="btn add">Add to List</button>
+        </div>
+      </div>
+    </div></section>
+  </div>
+
+  <div class="two">
+    <section class="block"><h2>Popular Directors</h2><div class="box">
+      <div class="item with-pic clickable" data-director="Denis Villeneuve" role="button" tabindex="0" title="See Denis Villeneuve's films"><div class="pic tall" data-person="Denis Villeneuve"></div><p><b>Denis Villeneuve</b><br><small>Prisoners, Dune, Arrival</small></p><button class="btn small follow-btn" data-name="Denis Villeneuve">Follow</button></div>
+      <div class="item with-pic clickable" data-director="Christopher Nolan" role="button" tabindex="0" title="See Christopher Nolan's films"><div class="pic tall" data-person="Christopher Nolan"></div><p><b>Christopher Nolan</b><br><small>Oppenheimer, Inception, Dark Knight</small></p><button class="btn small follow-btn" data-name="Christopher Nolan">Follow</button></div>
+      <div class="item with-pic clickable" data-director="Stanley Kubrick" role="button" tabindex="0" title="See Stanley Kubrick's films"><div class="pic tall" data-person="Stanley Kubrick"></div><p><b>Stanley Kubrick</b><br><small>2001: A Space Odyssey, The Shining</small></p><button class="btn small follow-btn" data-name="Stanley Kubrick">Follow</button></div>
+    </div></section>
+    <section class="block"><h2>Featured Movie Lists</h2><div class="box">
+      <div class="item clickable" data-flist="thrillers" role="button" tabindex="0"><span>Dark Thrillers &amp; Mystery Masterpiece</span><small>27 Films</small></div>
+      <div class="item clickable" data-flist="mcu" role="button" tabindex="0"><span>Complete MCU Infinity Saga</span><small>23 Films</small></div>
+      <div class="item clickable" data-flist="noir" role="button" tabindex="0"><span>Neo-Noir Cinema Essential</span><small>30 Films</small></div>
+    </div></section>
+  </div>
+</div>
+
+<!-- ===================== TV SHOWS PAGE ===================== -->
+<div class="page" id="tv">
+  <section class="block"><h2>Top 10 TV Shows</h2>
+    <div class="hero top10" id="top10">
+      <div class="top10-text" id="t10Text">
+        <h1 id="t10Title">Loading Top 10...</h1>
+        <p id="t10By"></p>
+        <p id="t10Meta"></p>
+        <p id="t10Story"></p>
+        <div><button class="btn add" id="t10Add">Add to List</button> <button class="btn outline" id="t10More">More Info</button></div>
+      </div>
+      <button class="t10-arrow prev" id="t10Prev" aria-label="Previous show">‹</button>
+      <button class="t10-arrow next" id="t10Next" aria-label="Next show">›</button>
+      <div class="t10-dots" id="t10Dots"></div>
+    </div>
+  </section>
+
+  <div class="two">
+    <section class="block"><h2>Popular Anime Series</h2><div class="row wrap anime-grid" data-source="/discover/tv?with_genres=16&amp;with_origin_country=JP&amp;sort_by=popularity.desc">
+      <div class="card"><div class="poster"></div><b>One Piece</b><small>★ 9.0 • 1999-Present</small></div>
+      <div class="card"><div class="poster"></div><b>Attack on Titan</b><small>★ 9.1 • 2013-2023</small></div>
+      <div class="card"><div class="poster"></div><b>Naruto</b><small>★ 8.4 • 2002-2007</small></div>
+      <div class="card"><div class="poster"></div><b>Fullmetal Alchemist: Brotherhood</b><small>★ 9.1 • 2009-2010</small></div>
+      <div class="card"><div class="poster"></div><b>Bleach</b><small>★ 8.3 • 2004-2012</small></div>
+    </div></section>
+    <section class="block"><h2>New Episodes This Week</h2>
+      <!-- Filled from TMDB: this week's trending shows and their newest episode. The rows below show only if TMDB is unreachable. -->
+      <div id="episodeList">
+      <div class="item"><span><b>The Last of Us</b><br><small>S2 E4 • Day One</small></span><small>📅 Sun</small></div>
+      <div class="item"><span><b>House of the Dragon</b><br><small>S2 E3 • The Burning Mill</small></span><small>📅 Mon</small></div>
+      <div class="item"><span><b>The Boys</b><br><small>S4 E6 • Dirty Business</small></span><small>📅 Fri</small></div>
+      <div class="item"><span><b>Rick and Morty</b><br><small>S7 E2 • The Jerrick Trap</small></span><small>📅 Sat</small></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="block"><h2>Trending TV Shows</h2><div class="row" data-source="/trending/tv/week">
+    <div class="card"><div class="poster"></div><b>The Pitt</b><small>★ 8.9 • 2025 • Season 2</small></div>
+    <div class="card"><div class="poster"></div><b>Pluribus</b><small>★ 8.0 • 2025 • Season 1</small></div>
+    <div class="card"><div class="poster"></div><b>A Knight of the Seven Kingdoms</b><small>★ 8.6 • 2026 • Season 1</small></div>
+    <div class="card"><div class="poster"></div><b>Severance</b><small>★ 8.6 • 2022 • Season 2</small></div>
+    <div class="card"><div class="poster"></div><b>The Bear</b><small>★ 8.5 • 2022 • Season 5</small></div>
+    <div class="card"><div class="poster"></div><b>Breaking Bad</b><small>★ 9.5 • 2013 • Season 5</small></div>
+    <div class="card"><div class="poster"></div><b>Better Call Saul</b><small>★ 9.0 • 2022 • Season 6</small></div>
+    <div class="card"><div class="poster"></div><b>Chernobyl</b><small>★ 9.3 • 2019 • Season 1</small></div>
+  </div></section>
+
+  <section class="block"><h2>Explore TV Shows Genre</h2>
+  <!-- Each icon is an inline SVG drawing, so no image files are needed --><div class="genres">
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h10v7a5 5 0 0 1-10 0z"/><path d="M6 8v.01M10 8v.01"/><path d="M6 12.5c1 1 3 1 4 0"/><path d="M13 9h8v6a4 4 0 0 1-8 0z"/><path d="M15.5 12v.01M18.5 12v.01"/><path d="M15.5 16c1-1 2-1 3 0"/></svg>Drama</div>
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c3 2 5 6 5 10l-2 3H9l-2-3c0-4 2-8 5-10z"/><circle cx="12" cy="9" r="1.5"/><path d="M7 14l-3 3 3 1M17 14l3 3-3 1M10 18l2 4 2-4"/></svg>Sci-Fi</div>
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a8 8 0 0 0-8 8c0 3 1.5 4.5 3 5.5V20h10v-3.5c1.5-1 3-2.5 3-5.5a8 8 0 0 0-8-8z"/><circle cx="9" cy="11" r="1.5"/><circle cx="15" cy="11" r="1.5"/><path d="M10 20v-2.5M14 20v-2.5M12 14v1"/></svg>Crime</div>
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20L16 8"/><path d="M14 6l4 4"/><path d="M19 3v4M17 5h4M6 4v3M4.5 5.5h3M20 15v3M18.5 16.5h3"/></svg>Animation</div>
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Thriller</div>
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 14c1 2 3 3 4 3s3-1 4-3"/><path d="M9 9.5v.01M15 9.5v.01"/></svg>Comedy</div>
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>Mystery</div>
+    <div tabindex="0" role="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg>Documentary</div>
+  </div></section>
+
+  <!-- Shows appear here when a genre card above is clicked -->
+  <section class="block" id="genreResults" hidden>
+    <h2 id="genreTitle">TV Shows</h2>
+    <div class="row" id="genreRow"></div>
+  </section>
+
+  <section class="block"><h2>Filmlify Community Top Lists</h2><div class="three">
+    <div class="box tv-list" data-tvlist="finales" role="button" tabindex="0"><small>Essential Drama ♥ 14.2k</small><h3>Shows with Perfect Series Finales</h3><small>by @wembaby • 12 Shows</small></div>
+    <div class="box tv-list" data-tvlist="mystery" role="button" tabindex="0"><small>Suspense ♥ 9.8k</small><h3>Mind-Bending Mystery &amp; Thrillers</h3><small>by @tyresehaliburnout • 15 Shows</small></div>
+    <div class="box tv-list" data-tvlist="scifi" role="button" tabindex="0"><small>Futuristic ♥ 4.8k</small><h3>Best Sci-Fi Worldbuilding</h3><small>by @lebwrongsend • 19 Shows</small></div>
+    <div class="box tv-list" data-tvlist="crime" role="button" tabindex="0"><small>Masterpieces ♥ 3.2k</small><h3>Dark &amp; Gritty Crime Sagas</h3><small>by @kyrieyearning • 20 Shows</small></div>
+    <div class="box tv-list" data-tvlist="animated" role="button" tabindex="0"><small>Anime &amp; Animation ♥ 16.6k</small><h3>Top-Tier Animated Sagas</h3><small>by @oganobatayo • 18 Shows</small></div>
+    <div class="box tv-list" data-tvlist="miniseries" role="button" tabindex="0"><small>Limited Series ♥ 11.2k</small><h3>Peak TV Miniseries Masterpieces</h3><small>by @austinrebound • 10 Shows</small></div>
+  </div></section>
+</div>
+
+<!-- ===================== IN THEATER PAGE ===================== -->
+<div class="page" id="theater">
+  <div class="two">
+    <div>
+      <div class="hero" data-title="Spider-Man: Brand New Day"><h1 style="color:var(--accent)">Book Tickets. Enjoy the Show.</h1>
+        <p>Discover the latest movie, check showtimes, and book your tickets in just a few clicks.</p></div>
+      <section class="block"><h2>Now Showing</h2><div class="row" data-source="/movie/now_playing">
+        <div class="card"><div class="poster"></div><b>Spider-Man: Brand New Day</b><small>Action • ★ 8.0</small></div>
+        <div class="card"><div class="poster"></div><b>The Odyssey</b><small>Action • ★ 8.5</small></div>
+        <div class="card"><div class="poster"></div><b>Insidious: Out of the Further</b><small>Horror • ★ 6.2</small></div>
+        <div class="card"><div class="poster"></div><b>Fall 2: Deadpoint</b><small>Adventure • ★ 5.6</small></div>
+        <div class="card"><div class="poster"></div><b>Practical Magic 2</b><small>Romance • ★ 6.4</small></div>
+      </div></section>
+      <section class="block"><h2>Coming Soon</h2><div class="row" data-source="/movie/upcoming">
+        <div class="card"><div class="poster"></div><b>Your Mother Your Mother Your Mother</b><small>October 9, 2026</small></div>
+        <div class="card"><div class="poster"></div><b>Digger</b><small>October 2, 2026</small></div>
+        <div class="card"><div class="poster"></div><b>Dune: Part Three</b><small>December 18, 2026</small></div>
+        <div class="card"><div class="poster"></div><b>Avengers: Doomsday</b><small>December 18, 2026</small></div>
+        <div class="card"><div class="poster"></div><b>Jumanji: Open World</b><small>December 25, 2026</small></div>
+      </div></section>
+    </div>
+
+    <div class="box">
+      <div class="empty" id="bookEmpty">Select a movie from Now Showing to start booking.</div>
+      <div id="bookBody" hidden>
+      <div class="book-movie">
+        <div class="book-poster" id="bookPoster"></div>
+        <div class="book-info">
+          <h2 id="bookTitle"></h2>
+          <p id="bookGenres"></p>
+          <p id="bookRating"></p>
+          <p id="bookOverview"></p>
+        </div>
+      </div>
+      <label>Select Cinema</label>
+      <select id="cinema"><option>Filmlify - Rang-ayan Branch</option><option>Filmlify - Gerona Branch</option><option>Filmlify - Pura Branch</option><option>Filmlify - Anton Branch</option></select>
+      <label>Select Date</label>
+      <input type="date" id="date">
+      <label>Select Time</label>
+      <div class="times" id="times">
+        <button>10:00 AM</button><button>1:00 PM</button><button class="chosen">4:00 PM</button><button>7:00 PM</button>
+      </div>
+      <div class="seat-section">
+        <div class="seat-legend">
+          <h3>Select Seats</h3>
+          <p><i class="swatch free"></i> Available</p>
+          <p><i class="swatch mine"></i> Selected</p>
+          <p><i class="swatch gone"></i> Taken</p>
+          <p><i class="swatch wheel">♿</i> Wheelchair Space</p>
+        </div>
+        <div class="seat-map">
+          <div class="screen">SCREEN</div>
+          <div id="seats"></div>  <!-- rows, letters and numbers are made by the JavaScript below -->
+        </div>
+      </div>
+      <div class="box summary">
+        <h3>Booking Summary</h3>
+        <p><span>Movie</span><span id="sumMovie"></span></p>
+        <p><span>Cinema</span><span id="sumCinema"></span></p>
+        <p><span>Date &amp; Time</span><span id="sumTime"></span></p>
+        <p><span>Seats</span><span id="sumSeats"></span></p>
+        <p><b>Total</b><b id="sumTotal"></b></p>
+        <button class="btn wide" id="payBtn">Proceed to Payment</button>
+      </div>
+      </div><!-- end of bookBody: only shown after a movie is chosen -->
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PROFILE PAGE ===================== -->
+<!-- EDIT YOUR INFORMATION IN THIS SECTION -->
+<div class="page" id="profile">
+  <div class="box profile-top">
+    <div class="avatar" id="pAvatar">V</div>
+    <div>
+      <h1 id="pName">Victor Wenbamamahalin</h1>                 <!-- your name -->
+      <p><small id="pBio">@wembaby • Film Enthusiast &amp; Reviewer</small></p>
+      <button class="btn small" id="editProfile">Edit Profile</button> <button class="btn small" id="shareProfile">Share Profile</button>   <!-- your handle and bio -->
+    </div>
+    <div class="stats">                              <!-- these numbers count up by themselves (see script.js) -->
+      <div><b id="statFollowers">0</b>Followers</div><div><b id="statFollowing">0</b>Following</div><div><b id="statWatched">0</b>Watched</div>
+      <div><b id="statReviews">0</b>Reviews</div><div><b id="statWatchlist">0</b>Watchlist</div>
+    </div>
+  </div>
+
+  <div class="two">
+    <div>
+      <section class="block"><h2>Favorite Films</h2><div class="row" id="favFilms"></div></section>
+      <section class="block"><h2>Favorite TV Shows</h2><div class="row" id="favShows"></div></section>
+      <section class="block"><h2>Recent Watched</h2><div class="row" id="recentWatched"></div></section>
+      <section class="block"><h2>Recent Reviews</h2>
+        <div id="reviewList"></div>   <!-- your reviews appear here -->
+      </section>
+    </div>
+    <div>
+      <section class="block"><h2>Watchlist</h2><div class="box">
+        <div id="myWatchlist"></div>   <!-- titles you add appear here -->
+        <button class="btn wide" id="addWatchTitle">+ Add title</button>
+      </div></section>
+      <section class="block"><h2>Favorite Genre</h2><div class="box" id="genreBars"></div>   <!-- filled from the genres of movies you review -->
+      </section>
+      <section class="block"><h2>Custom Lists</h2><div class="box">
+        <div id="customLists"></div>
+        <input type="text" id="newListName" placeholder="New list name...">
+        <button class="btn wide" id="createList">Create List</button>
+      </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BROWSE PAGE (filters) ===================== -->
+<div class="page" id="browse">
+  <section class="block"><h2>Browse</h2>
+    <div class="filters">
+      <select id="fType"><option value="movie">Movies</option><option value="tv">TV Shows</option></select>
+      <select id="fGenre"></select>
+      <select id="fYear"></select>
+      <select id="fRating"><option value="">Any rating</option><option value="9">9+ ★</option><option value="8">8+ ★</option><option value="7">7+ ★</option><option value="6">6+ ★</option></select>
+      <select id="fSort"><option value="popularity.desc">Most popular</option><option value="vote_average.desc">Highest rated</option><option value="primary_release_date.desc">Newest</option></select>
+    </div>
+    <div class="row wrap" id="browseGrid"></div>
+    <p style="text-align:center; margin-top:16px"><button class="btn" id="loadMore">Load more</button></p>
+  </section>
+</div>
+
+<!-- ===================== TERMS AND PRIVACY (draft text: have it reviewed before launch) ===================== -->
+<div class="page" id="terms">
+  <section class="block"><h2>Terms of Service</h2><div class="box">
+    <p>Filmlify is a personal, non-commercial project. By using it you agree to use it lawfully and respectfully.</p><br>
+    <p>Reviews you write are your own opinions. Do not post hateful, illegal or misleading content.</p><br>
+    <p>Movie and TV information comes from TMDB. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+  </div></section>
+</div>
+
+<div class="page" id="privacy">
+  <section class="block"><h2>Privacy Policy</h2><div class="box">
+    <p>Right now your reviews, watchlist, lists and profile are saved only in your own browser. They are not sent to any server.</p><br>
+    <p>When you search or browse, your requests go to TMDB to fetch movie information.</p><br>
+    <p>If accounts are added later, this page will explain what is collected and why.</p>
+  </div></section>
+</div>
+
+<!-- ===================== LOGIN PAGE ===================== -->
+<div class="page" id="login">
+  <div class="login">
+    <div class="brand">
+      <h1>🎞 Filmlify</h1>
+      <p style="font-size:20px; margin:8px 0 24px">Movies • TV Shows • Rating • Database</p>
+      <h2 style="border:0">Discover. Rate. Keep Track.</h2>
+      <p>Your all-in-one platform for movies and TV shows. Explore detailed information, read real ratings, and build your own watchlist.</p>
+    </div>
+    <div>
+      <p style="text-align:right; margin-bottom:10px"><span id="switchText">Don't have an account?</span> <a href="#login" id="switchLink" style="color:var(--accent)">Sign Up</a></p>
+      <form class="box" id="loginForm">
+        <h1 id="formTitle">Welcome to Filmlify</h1>
+        <p>Sign in to continue to Filmlify</p>
+        <div id="nameBox" style="display:none">
+          <label for="fullName">Full name</label>
+          <input type="text" id="fullName" name="name" autocomplete="name" placeholder="Enter your full name" maxlength="60">
+        </div>
+        <div id="emailBox" style="display:none">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="Enter your email">
+        </div>
+        <label for="user" id="userLabel">Email or Username</label>
+        <input type="text" id="user" name="username" autocomplete="username" placeholder="Enter your email or username">
+        <div class="error" id="userError"></div>
+        <label for="pass">Password</label>
+        <input type="password" id="pass" name="password" autocomplete="current-password" placeholder="Enter your password">
+        <div class="error" id="passError"></div>
+        <label><input type="checkbox" id="showPass"> Show password</label>
+        <div style="display:flex; justify-content:space-between; margin:8px 0">
+          <label><input type="checkbox" id="remember"> Remember me</label>
+          <a href="#login" id="forgotLink" style="color:var(--accent)">Forgot password?</a>
+        </div>
+        <button class="btn wide" id="submitBtn">Sign In</button>
+        <p style="text-align:center; margin:14px 0">OR</p>
+        <button type="button" class="btn outline wide" id="googleBtn" style="margin:0">Continue with Google</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ===================== FOOTER (same on every page) ===================== -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="logo">🎞 Filmlify</div><p style="max-width:280px">Search top-rated blockbusters, trending releases, and hidden gems in seconds.</p></div>
+    <div><b>Navigation</b><a href="#home">Home</a><a href="#movies">Movies</a><a href="#tv">TV Shows</a><a href="#theater">In Theater</a><a href="#profile">Profile</a></div>
+    <div><b>Support &amp; Legal</b><a href="#home">Help Center</a><a href="#terms">Terms of Service</a><a href="#privacy">Privacy Policy</a><a href="mailto:brianmanzano528@gmail.com">Contact Us</a></div>
+    <div><b>Contact With Us</b>
+      <!-- EDIT YOUR CONTACT LINKS HERE -->
+      <a href="https://www.facebook.com/brian.manzano.906/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/mxyzp.tlk528/?hl=en" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:brianmanzano528@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="copyright">© 2026 Filmlify. All Rights Reserved.<br><small>This product uses the TMDB API but is not endorsed or certified by TMDB.</small></div>
+</footer>
+
+<!-- ===================== MOVIE POP-UP (opens when you click a poster) ===================== -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" id="closeModal" aria-label="Close">✕</button>
+    <div class="modal-top">
+      <div class="modal-poster" id="mPoster"></div>
+      <div>
+        <h2 id="mTitle"></h2>
+        <p><small id="mMeta"></small></p>
+        <p id="mOverview" style="margin:10px 0 14px"></p>
+        <button class="btn" id="mWatchlist">+ Add to Watchlist</button>
+        <button class="btn outline" id="mWatched">Mark as Watched</button>
+        <div class="list-add"><select id="mListSelect"></select> <button class="btn small" id="mListAdd">Add to my list</button></div>
+        <div id="mExtra"></div>   <!-- runtime, cast, where to watch, trailer -->
+      </div>
+    </div>
+
+    <h3>More like this</h3>
+    <div class="row" id="mSimilar"></div>
+
+    <h3>Rate and review</h3>
+    <div id="stars">
+      <button class="star-btn" data-value="1">★</button><button class="star-btn" data-value="2">★</button><button class="star-btn" data-value="3">★</button><button class="star-btn" data-value="4">★</button><button class="star-btn" data-value="5">★</button>
+    </div>
+    <textarea id="reviewText" placeholder="What did you think? (optional)"></textarea>
+    <div class="error" id="reviewError"></div>
+    <button class="btn" id="postReview">Done</button>
+
+    <h3>Reviews</h3>
+    <div id="mReviews"></div>
+  </div>
+</div>
+
+<!-- ===================== LIST POP-UP (Home > Lists For You) ===================== -->
+<div class="modal" id="listModal"><div class="modal-box">
+  <h2 id="listTitle"></h2>
+  <div class="row wrap" id="listGrid"></div>
+  <button class="btn outline wide" id="listClose" type="button">Close</button>
+</div></div>
+
+<!-- ===================== EDIT PROFILE POP-UP ===================== -->
+<div class="modal" id="editProfileModal"><div class="modal-box">
+  <h2>Edit Profile</h2>
+  <div class="ep-photo">
+    <div class="avatar" id="epAvatar"></div>
+    <div>
+      <button class="btn" id="epPick" type="button">Change photo</button>
+      <button class="btn outline" id="epRemove" type="button">Remove photo</button>
+      <br><small>JPG or PNG. It is cropped to a square.</small>
+      <input type="file" id="epFile" accept="image/*" hidden>
+    </div>
+  </div>
+  <label for="epName">Full name</label>
+  <input id="epName" maxlength="60" autocomplete="name">
+  <label for="epUser">Username</label>
+  <input id="epUser" maxlength="30" autocomplete="off">
+  <label for="epBio">Bio</label>
+  <input id="epBio" maxlength="60" placeholder="Film Enthusiast" autocomplete="off">
+  <div class="error" id="epError"></div>
+  <button class="btn wide" id="epSave" type="button">Save changes</button>
+  <button class="btn outline wide" id="epCancel" type="button">Cancel</button>
+</div></div>
+
+<!-- ===================== CUSTOM LIST POP-UP ===================== -->
+<div class="modal" id="clModal"><div class="modal-box">
+  <h2 id="clTitle"></h2>
+  <div class="row wrap" id="clGrid"></div>
+  <button class="btn wide" id="clAdd" type="button">+ Add movie or TV show</button>
+  <button class="btn outline wide" id="clClose" type="button">Close</button>
+</div></div>
+
+<!-- ===================== DIRECTOR / FEATURED LIST POP-UP ===================== -->
+<div class="modal" id="featModal"><div class="modal-box">
+  <div class="feat-head">
+    <div class="feat-photo" id="featPhoto" hidden></div>
+    <div><h2 id="featTitle"></h2><p id="featSub"></p></div>
+  </div>
+  <div class="row wrap" id="featGrid"></div>
+  <button class="btn outline wide" id="featClose" type="button">Close</button>
+</div></div>
+
+<!-- ===================== TITLE PICKER POP-UP ===================== -->
+<div class="modal" id="pickModal"><div class="modal-box">
+  <h2 id="pickTitle">Add a title</h2>
+  <input type="search" id="pickInput" placeholder="Search movies or TV shows..." autocomplete="off">
+  <div id="pickResults"></div>
+  <button class="btn outline wide" id="pickCancel" type="button">Cancel</button>
+</div></div>
+
+<!-- ===================== PAYMENT POP-UP ===================== -->
+<div class="modal" id="payModal"><div class="modal-box">
+  <div id="payStep1">
+    <h2>Payment</h2>
+    <div class="pay-receipt" id="paySummary"></div>
+
+    <label class="pay-label">Payment method</label>
+    <div class="pay-methods" id="payMethods" role="radiogroup" aria-label="Payment method">
+      <button type="button" class="pay-method on" data-method="GCash" role="radio" aria-checked="true"><b>GCash</b><small>E-wallet</small></button>
+      <button type="button" class="pay-method" data-method="Maya" role="radio" aria-checked="false"><b>Maya</b><small>E-wallet</small></button>
+      <button type="button" class="pay-method" data-method="Card" role="radio" aria-checked="false"><b>Card</b><small>Credit / Debit</small></button>
+    </div>
+    <select id="payMethod" hidden><option value="GCash">GCash</option><option value="Maya">Maya</option><option value="Card">Credit / Debit card</option></select>
+
+    <div id="walletBox"><label class="pay-label" id="walletLabel" for="payMobile">GCash mobile number</label><input id="payMobile" type="tel" placeholder="09XXXXXXXXX" maxlength="11" inputmode="numeric" autocomplete="tel"></div>
+    <div id="cardBox" style="display:none">
+      <label class="pay-label" for="cardName">Name on card</label><input id="cardName" type="text" placeholder="Juan Dela Cruz" autocomplete="cc-name">
+      <label class="pay-label" for="cardNum">Card number</label><input id="cardNum" type="text" placeholder="4242 4242 4242 4242" maxlength="19" inputmode="numeric" autocomplete="cc-number">
+      <div class="pay-two">
+        <div><label class="pay-label" for="cardExp">Expiry (MM/YY)</label><input id="cardExp" type="text" placeholder="MM/YY" maxlength="5" inputmode="numeric" autocomplete="cc-exp"></div>
+        <div><label class="pay-label" for="cardCvv">CVV</label><input id="cardCvv" maxlength="4" inputmode="numeric" type="password" placeholder="•••" autocomplete="cc-csc"></div>
+      </div>
+    </div>
+    <p class="pay-note">Demo payment: no real money is charged and no card details are saved.</p>
+    <div class="error" id="payError"></div>
+    <button class="btn wide" id="confirmPay">Pay now</button>
+    <button class="btn outline wide" id="cancelPay" type="button">Cancel</button>
+  </div>
+  <div id="payStep2" style="display:none">
+    <h2>Booking confirmed ✓</h2>
+    <div class="box summary" id="ticketBox"></div>
+    <button class="btn wide" id="closeTicket">Done</button>
+  </div>
+</div></div>
+
+<div id="message"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
