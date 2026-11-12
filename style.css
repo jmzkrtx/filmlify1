@@ -1,3 +1,4 @@
+/* ===== COLORS (change them here) ===== */
 :root {
     --dark: #0b1124;
     --bg: #1a2150;
@@ -155,11 +156,11 @@ main {
     opacity: 0.3;
 }
 
-.card:nth-child(3n+2) .poster {
+.card:nth-child(3n+2) .poster:not(.has-image) {
     background: linear-gradient(160deg,#9a4a3a,#2a1620);
 }
 
-.card:nth-child(3n+3) .poster {
+.card:nth-child(3n+3) .poster:not(.has-image) {
     background: linear-gradient(160deg,#2f7a68,#102a2a);
 }
 
@@ -276,7 +277,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: none;          /* no box behind the Filmlify text */
+    background: linear-gradient(135deg,#0f1530,#3a4488);
 }
 
 .brand h1 {
@@ -476,7 +477,7 @@ footer {
 
 /* ===== REAL POSTERS FROM THE API ===== */
 .poster.has-image {
-    background-size: cover;
+    background-size: 100% 100%;   /* show the WHOLE poster, no cropping */
     background-position: center;
 }
 
@@ -944,10 +945,6 @@ textarea {
     animation: fadein 0.4s;
 }
 
-.card:hover .poster {
-    transform: translateY(-3px);
-}
-
 .poster {
     transition: transform 0.15s;
 }
@@ -1039,248 +1036,1295 @@ textarea {
         grid-template-columns: 1fr 1fr;
     }
 }
-.seat.wheelchair { font-size: 11px; line-height: 1; padding: 0; }
 
-/* Browse page: poster grid that wraps, so "Load more" adds visible rows */
-.row.wrap { flex-wrap: wrap; overflow-x: visible; }
-.slider:has(.row.wrap) .arrow { display: none; }
-#loadMore[hidden] { display: none; }
 
-#times button:disabled { opacity: .4; cursor: not-allowed; text-decoration: line-through; }
-
-/* ===== Profile defaults (Figma layout) ===== */
-.card-slot { width: 150px; flex: none; aspect-ratio: 2 / 3; display: grid; place-items: center; font-size: 36px;
-  border: 1px solid var(--line); border-radius: 10px; background: #141a40; color: var(--accent); cursor: pointer; }
-.card-slot:hover { background: #1d2658; }
-.mini-poster { width: 54px; height: 80px; flex: none; border-radius: 6px; background: linear-gradient(160deg,#4b55b8,#161c45) center / cover; }
-#defaultWatchlist .item { align-items: center; gap: 14px; }
-#defaultWatchlist .item > span { flex: 1; }
-.review-default { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 10px; }
-.review-default p { margin: 4px 0; }
-.profile-top .btn.small { padding: 10px 22px; }
-
-/* poster edit / delete buttons */
-.card { position: relative; }
-.card .tools { position: absolute; top: 6px; right: 6px; display: flex; gap: 4px; opacity: 0; transition: opacity .15s; }
-.card:hover .tools, .card:focus-within .tools { opacity: 1; }
-@media (hover: none) { .card .tools { opacity: 1; } }
-.tool { width: 26px; height: 26px; border-radius: 50%; border: 0; cursor: pointer; background: #0b1124cc; color: #fff; font-size: 13px; }
-.tool:hover { background: var(--accent); }
-
-/* title picker pop-up */
-#pickResults { margin: 12px 0; max-height: 52vh; overflow-y: auto; }
-.pick-item { display: flex; gap: 14px; align-items: center; padding: 8px; border-radius: 8px; cursor: pointer; }
-.pick-item:hover { background: #1d2658; }
-#pickInput { width: 100%; }
-
-/* Favorite Films / TV Shows: five equal slots in one row, like the Figma design */
-#favFilms, #favShows { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; overflow: visible; }
-#favFilms .card, #favShows .card, #favFilms .card-slot, #favShows .card-slot { width: auto; }
-.slider:has(#favFilms) .arrow, .slider:has(#favShows) .arrow { display: none; }
-
-/* Favorites: five equal columns that can never be wider than their box */
-#favFilms, #favShows { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; align-items: start; overflow: visible; }
-#favFilms .card, #favShows .card, #favFilms .card-slot, #favShows .card-slot { width: 100%; min-width: 0; }
-#favFilms .card .poster, #favShows .card .poster { width: 100%; }
-.item .btn.small, .item .btn { white-space: nowrap; }
-
-/* Profile posters: poster only, all the same size (5 per row) */
-#favFilms, #favShows, #recentWatched { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; align-items: start; overflow: visible; }
-#favFilms .card, #favShows .card, #recentWatched .card,
-#favFilms .card-slot, #favShows .card-slot { width: 100%; min-width: 0; margin: 0; }
-#favFilms .card .poster, #favShows .card .poster, #recentWatched .card .poster { width: 100%; aspect-ratio: 2 / 3; }
-#favFilms .card b, #favShows .card b, #recentWatched .card b { display: none; }
-#favFilms .card-slot, #favShows .card-slot { aspect-ratio: 2 / 3; }
-.slider:has(#recentWatched) .arrow { display: none; }
-.empty-note { grid-column: 1 / -1; margin: 0; }
-
-/* title picker: readable text */
-#pickModal .modal-box { width: min(560px, 92vw); }
-#pickTitle { margin: 0 0 10px; font-size: 22px; color: #fff; }
-#pickInput { width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 16px; color: #fff; background: #0f1530;
-  border: 1px solid #4b55b8; border-radius: 10px; outline: none; margin: 4px 0 10px; }
-#pickInput::placeholder { color: #9aa3d8; }
-#pickInput:focus { border-color: #8f9bff; box-shadow: 0 0 0 3px #4b55b855; }
-#pickResults { color: #c9cffc; min-height: 24px; }
-.pick-item { border-bottom: 1px solid #2b3470; }
-.pick-item b { color: #fff; font-size: 16px; }
-.pick-item small { color: #aab2e8; }
-
-/* Seat map: legend, SCREEN bar, row letters and seat numbers (Figma layout) */
-.seat-section { display: flex; flex-wrap: wrap; gap: 18px 24px; align-items: flex-start; margin-top: 14px; }
-.seat-legend { flex: 0 0 150px; }
-.seat-legend h3 { margin: 0 0 12px; }
-.seat-legend p { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-.swatch { width: 20px; height: 20px; border-radius: 4px; display: inline-grid; place-items: center; font-style: normal; font-size: 12px; flex: none; }
-.swatch.free { background: #6f84d8; }
-.swatch.mine { background: #e5283c; }
-.swatch.gone { background: #2a336e; }
-.swatch.wheel { background: #6f84d8; color: #fff; }
-.seat-map { flex: 1 1 340px; min-width: 0; }
-.screen { text-align: center; padding: 6px 0; margin: 0 0 14px; font-size: 13px; letter-spacing: 1px;
-  background: #3a4488; color: #fff; border-radius: 40px 40px 0 0; }
-#seats { display: block; max-width: none; margin: 0; }
-.seat-row { display: grid; grid-template-columns: 22px repeat(15, minmax(0, 1fr)); gap: 5px; margin-bottom: 5px; align-items: center; }
-.row-label { text-align: center; font-size: 13px; color: #c9cffc; }
-
-/* Home: Lists For You */
-.list-link:hover { background: #1d2658; }
-.list-link span { flex: 1; }
-#listModal .modal-box { max-width: 900px; }
-#listTitle { margin: 0 0 14px; }
-#listGrid { color: #c9cffc; }
-#listGrid .card { width: 130px; }
-
-/* Top 10 TV Shows slideshow */
-.hero.top10 { position: relative; min-height: 340px; background-size: cover; background-position: center; overflow: hidden; }
-.top10-text { max-width: 760px; display: flex; flex-direction: column; gap: 10px; animation: t10in .5s ease; }
-@keyframes t10in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.t10-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: 0;
-  background: #0b1124aa; color: #fff; font-size: 26px; line-height: 1; cursor: pointer; }
-.t10-arrow:hover { background: var(--accent); }
-.t10-arrow.prev { left: 12px; }
-.t10-arrow.next { right: 12px; }
-.t10-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
-.t10-dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 6px; background: #ffffff66; cursor: pointer; transition: all .25s; }
-.t10-dots button.on { width: 26px; background: var(--accent); }
-
-/* Fix cropped posters: the colored "3n+2 / 3n+3" card backgrounds reset the image size to "auto",
-   which zoomed every 2nd and 3rd poster. These rules force every picture to fit its box. */
-.poster.has-image, .poster[style*="background-image"],
-.modal-poster[style*="background-image"],
-.thumb.has-image, .thumb[style*="background-image"],
-.pic.has-image, .pic[style*="background-image"],
-.mini-poster {
-  background-size: cover !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
+/* ===== LOGIN PAGE POSTER BACKGROUND ===== */
+.brand {
+    position: relative;
+    overflow: hidden;
 }
 
-/* Edit profile pop-up */
-.ep-photo { display: flex; align-items: center; gap: 18px; margin: 6px 0 10px; }
-#epAvatar { width: 84px; height: 84px; font-size: 34px; flex: none; }
-.avatar { background-size: cover !important; background-position: center !important; }
-#editProfileModal input { width: 100%; box-sizing: border-box; padding: 11px 14px; font-size: 16px; color: #fff; background: #0f1530;
-  border: 1px solid #4b55b8; border-radius: 10px; outline: none; }
-#editProfileModal input:focus { border-color: #8f9bff; box-shadow: 0 0 0 3px #4b55b855; }
-#editProfileModal .error { min-height: 20px; margin: 8px 0; }
-/* custom list pop-up */
-#clModal .modal-box { max-width: 900px; }
-#clTitle { margin: 0 0 14px; }
-#clGrid { color: #c9cffc; margin-bottom: 14px; }
-#clGrid .card { width: 130px; }
-#pickModal { z-index: 70; }
-
-/* Booking panel: chosen movie */
-.book-movie { display: flex; gap: 16px; margin-bottom: 14px; }
-.book-poster { width: 120px; flex: none; aspect-ratio: 2 / 3; border-radius: 10px;
-  background: linear-gradient(160deg, #4b55b8, #161c45) center / cover no-repeat; }
-.book-info { min-width: 0; }
-.book-info h2 { margin: 0 0 6px; }
-.book-info p { margin: 4px 0; color: #c9cffc; }
-#bookOverview { font-size: 14px; line-height: 1.4; }
-#bookBody[hidden], #bookEmpty[hidden] { display: none; }
-#bookEmpty { margin: 0; padding: 36px 16px; text-align: center; }
-
-/* clickable directors and featured lists */
-.item.clickable { cursor: pointer; }
-.item.clickable:hover, .item.clickable:focus-visible { border-color: var(--accent); outline: none; }
-#featModal .modal-box { max-width: 900px; }
-.feat-head { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 14px; }
-.feat-head > div:last-child { flex: 1; min-width: 0; }
-.feat-photo { width: 92px; height: 132px; flex: none; border-radius: 10px; background: #1a2252 center / cover no-repeat; }
-.feat-photo[hidden] { display: none; }
-#featTitle { margin: 0 0 6px; }
-#featSub { margin: 0; color: #c9cffc; font-size: 14px; line-height: 1.5; }
-#featGrid { color: #c9cffc; margin-bottom: 14px; }
-#featGrid .card { width: 130px; }
-
-
-/* clickable profile numbers and their pop-up */
-.stats > div.stat-link { cursor: pointer; padding: 6px 10px; border-radius: 10px; transition: background .15s; }
-.stats > div.stat-link:hover, .stats > div.stat-link:focus-visible { background: #1d2658; outline: none; }
-#statsModal { z-index: 60; }
-#statsModal .modal-box { max-width: 900px; }
-#statsTitle { margin: 0 0 14px; }
-#statsBody { color: #c9cffc; margin-bottom: 14px; }
-#statsBody .card { width: 130px; }
-.stat-person { align-items: center; }
-.stat-person > span { flex: 1; color: #fff; }
-.stat-photo { width: 44px; height: 44px; flex: none; border-radius: 50%; display: grid; place-items: center; font-weight: bold;
-  background: #3a4488 center / cover no-repeat; color: #fff; }
-
-
-/* ===== PAYMENT POP-UP ===== */
-#payModal .modal-box { max-width: 520px; }
-#payModal h2 { margin: 0 0 14px; }
-.pay-receipt { background: #141a40; border: 1px solid var(--line); border-radius: 12px; padding: 6px 16px; margin-bottom: 4px; }
-.pay-row { display: flex; justify-content: space-between; gap: 18px; padding: 9px 0; border-bottom: 1px solid #ffffff14; font-size: 15px; }
-.pay-row span { color: #aab3ec; flex: none; }
-.pay-row b { text-align: right; color: #fff; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
-.pay-row.pay-total { border-bottom: 0; padding: 12px 0 8px; }
-.pay-row.pay-total span { color: #fff; font-weight: bold; font-size: 16px; }
-.pay-row.pay-total b { font-size: 22px; color: #8f9bff; }
-#payModal .pay-label { margin: 16px 0 7px; font-size: 14px; color: #c9cffc; }
-.pay-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.pay-method { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 8px; cursor: pointer; color: #fff;
-  background: #1a2252; border: 1.5px solid var(--line); border-radius: 10px; transition: border-color .15s, background .15s; }
-.pay-method b { font-size: 16px; }
-.pay-method small { color: #aab3ec; font-size: 12px; }
-.pay-method:hover { border-color: #6f7bd8; }
-.pay-method.on { border-color: #8f9bff; background: #27307a; box-shadow: 0 0 0 3px #4b55b855; }
-#payModal input { width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 16px; color: #fff; background: #0f1530;
-  border: 1px solid #4b55b8; border-radius: 10px; outline: none; }
-#payModal input::placeholder { color: #7d86c4; }
-#payModal input:focus { border-color: #8f9bff; box-shadow: 0 0 0 3px #4b55b855; }
-.pay-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.pay-note { margin: 16px 0 0; font-size: 13px; color: #aab3ec; text-align: center; }
-#payModal .error { min-height: 20px; margin: 8px 0 0; text-align: center; }
-#payModal .btn.wide { margin-top: 10px; font-size: 16px; }
-#payModal #confirmPay { font-weight: bold; }
-@media (max-width: 480px) { .pay-two { grid-template-columns: 1fr; } .pay-methods { gap: 8px; } }
-
-
-/* TV page: clickable community lists */
-.box.tv-list { cursor: pointer; transition: background .15s, border-color .15s; }
-.box.tv-list:hover, .box.tv-list:focus-visible { background: #1d2658; border-color: var(--accent); outline: none; }
-
-
-/* ===== TV PAGE LAYOUT FIXES ===== */
-/* Top 10 banner: leave room for the arrows so they never sit on the text, and keep the dots clear of the buttons */
-.hero.top10 { padding: 36px 76px 52px; }
-.top10-text { max-width: 820px; }
-@media (max-width: 600px) {
-  .hero.top10 { padding: 22px 18px 64px; }
-  .t10-arrow { top: auto; bottom: 8px; transform: none; width: 36px; height: 36px; }
-  .t10-dots { bottom: 24px; }
+.brand-posters {
+    position: absolute;
+    inset: -10%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-content: start;
+    transform: rotate(-8deg);
 }
 
-/* Popular Anime Series: a tidy 4-across grid (8 posters) so it fills the height of "New Episodes This Week" */
-.anime-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; overflow: visible; }
-.anime-grid .card { width: auto; min-width: 0; }
-.anime-grid .card:nth-child(n+9) { display: none; }
-.anime-grid .card b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-@media (max-width: 850px) { .anime-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .anime-grid .card:nth-child(n+7) { display: none; } }
-@media (max-width: 480px) { .anime-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.brand-posters div {
+    aspect-ratio: 2 / 3;
+    border-radius: 8px;
+    background: #161c45 center / cover;
+}
+
+.brand::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #0f1530ee, #1a2150aa);
+}
+
+.brand > *:not(.brand-posters) {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== EMPTY FAVORITE SLOTS ===== */
+.slot {
+    width: 150px;
+    flex: none;
+}
+
+.slot-poster {
+    aspect-ratio: 2 / 3;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--line);
+    border-radius: 10px;
+    font-size: 36px;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.slot-poster:hover {
+    border-color: var(--accent);
+    color: var(--text);
+}
 
 
-/* ===== EDIT REVIEW POP-UP ===== */
-#editReviewModal { z-index: 80; }                       /* above the movie and profile-list pop-ups it can be opened from */
-#editReviewModal .modal-box { max-width: 480px; }
-#editReviewModal h2 { margin: 0 0 4px; }
-#erTitle { margin: 0 0 4px; color: #c9cffc; font-weight: 600; }
-#editReviewModal .er-label { margin: 18px 0 8px; font-size: 14px; color: #c9cffc; }
-#editReviewModal .er-label span { color: #7d86c4; }
-#erStars { display: flex; gap: 6px; }
-.er-star { width: 46px; height: 46px; font-size: 28px; line-height: 1; cursor: pointer; border-radius: 10px; color: #4a5390;
-  background: #1a2252; border: 1.5px solid var(--line); transition: color .12s, border-color .12s, transform .12s; }
-.er-star:hover { transform: translateY(-2px); border-color: #8f9bff; }
-.er-star.on { color: #f5c518; border-color: #8a7a2a; background: #232a5c; }
-#erStarsText { display: block; margin-top: 8px; color: #aab3ec; }
-#erText { width: 100%; box-sizing: border-box; min-height: 110px; resize: vertical; padding: 12px 14px; font-size: 16px; color: #fff;
-  background: #0f1530; border: 1px solid #4b55b8; border-radius: 10px; outline: none; font-family: inherit; }
-#erText:focus { border-color: #8f9bff; box-shadow: 0 0 0 3px #4b55b855; }
-#erText::placeholder { color: #7d86c4; }
-#editReviewModal .error { min-height: 20px; margin: 8px 0 0; }
-#editReviewModal .btn.wide { margin-top: 10px; }
-@media (max-width: 420px) { .er-star { width: 40px; height: 40px; font-size: 24px; } }
+/* ===== NEATER ROWS AND CENTERED HOVER ICONS ===== */
+.row {
+    scroll-snap-type: x proximity;
+}
+
+.row > .card, .row > .person, .row > .slot {
+    scroll-snap-align: start;
+}
+
+.quick button {
+    display: grid;
+    place-items: center;
+    padding: 0;
+}
+
+.quick svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.quick button.liked svg {
+    fill: currentColor;
+}
+
+
+/* ===== NAVIGATION: keep every link on one line ===== */
+.nav {
+    gap: 14px;
+}
+
+nav {
+    align-items: center;
+    gap: 2px;
+}
+
+nav a {
+    white-space: nowrap;
+    padding: 6px 9px;
+}
+
+#userArea, .login-link {
+    white-space: nowrap;
+}
+
+@media (min-width:851px) {
+    .search-wrap {
+        flex: 0 1 210px;
+        width: auto;
+        min-width: 130px;
+    }
+}
+
+/* On medium screens (under 1160px) the menu becomes the ☰ button, so nothing gets squeezed */
+@media (max-width:1160px) {
+    #menuBtn {
+        display: block;
+        order: 2;
+        margin-left: auto;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        order: 4;
+        flex: none;
+    }
+
+    nav.open {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+
+/* =====================================================================
+   DESIGN SYSTEM: typography, motion, states (added in the redesign)
+   ===================================================================== */
+:root {
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --shadow: 0 12px 30px #000000aa;
+    --glow: 0 0 24px #7b82e855;
+}
+
+/* ----- Typography ----- */
+body {
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+}
+
+h1 {
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+h3 {
+    font-size: 1.05rem;
+    font-weight: 650;
+}
+
+h2 small {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+}
+
+.hero p {
+    max-width: 60ch;
+    color: #dfe2ff;
+}
+
+.card b {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.card small, .item small {
+    font-size: 12.5px;
+}
+
+nav a {
+    font-size: 14.5px;
+    font-weight: 600;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+nav a:hover {
+    color: #c9ceff;
+    border-bottom-color: #7b82e866;
+}
+
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ----- Page and toast fade ----- */
+@keyframes pageIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.page.active {
+    animation: pageIn 0.35s var(--ease);
+}
+
+#message {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 10px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+    z-index: 80;
+}
+
+#message.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+#message.error {
+    background: #b3263a;
+}
+
+/* ----- Poster cards: zoom, lift, glow ----- */
+.row {
+    padding: 10px 6px 14px;
+    margin: -10px -6px -4px;
+    scroll-padding-left: 6px;
+    scroll-behavior: smooth;
+}
+
+.card {
+    transition: transform 0.25s var(--ease);
+}
+
+.card:hover {
+    transform: translateY(-4px) scale(1.03);
+    z-index: 3;
+}
+
+.card .poster {
+    transition: box-shadow 0.25s, background-size 0.45s var(--ease), outline-color 0.25s;
+}
+
+.card:hover .poster {
+    outline: none;
+    box-shadow: var(--shadow), var(--glow);
+}
+
+.card:hover .poster.has-image {
+    background-size: 108% 108%;
+}
+
+.quick {
+    display: flex;
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.card:hover .quick, .card:focus-within .quick {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+}
+
+.quick button {
+    transition: transform 0.15s, background-color 0.15s;
+}
+
+.quick button:hover {
+    transform: scale(1.12);
+    background: #5a67e0;
+}
+
+.quick button:active {
+    transform: scale(0.92);
+}
+
+/* ----- Buttons, inputs, stars ----- */
+.btn {
+    transition: transform 0.15s var(--ease), box-shadow 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    background-color: #5460c8;
+    box-shadow: 0 6px 18px #444fa866;
+}
+
+.btn.outline:hover {
+    background: #ffffff14;
+    box-shadow: none;
+}
+
+.btn:active {
+    transform: scale(0.97);
+    box-shadow: none;
+}
+
+.btn.is-on {
+    background: #2f8f6a;
+}
+
+.btn.outline.is-on {
+    background: #2f8f6a33;
+    border-color: #2f8f6a;
+}
+
+#search {
+    transition: box-shadow 0.2s, background-color 0.2s;
+}
+
+#search:focus {
+    outline: none;
+    background: #323c80;
+    box-shadow: 0 0 0 2px #7b82e8aa;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px #7b82e855;
+}
+
+.star-btn {
+    transition: transform 0.15s, color 0.15s;
+}
+
+.star-btn:hover {
+    transform: scale(1.2);
+}
+
+.star-btn:active {
+    transform: scale(0.9);
+}
+
+.item {
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.arrow {
+    transition: background-color 0.2s, transform 0.15s;
+}
+
+.arrow:active {
+    transform: translateY(-50%) scale(0.92);
+}
+
+.seat {
+    transition: transform 0.12s, background-color 0.15s;
+}
+
+.seat:not(.taken):hover {
+    transform: scale(1.2);
+}
+
+/* ----- Search drop-down and movie pop-up fade ----- */
+#suggestions {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+}
+
+#suggestions.open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.modal {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+}
+
+.modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    transform: translateY(18px) scale(0.98);
+    transition: transform 0.3s var(--ease);
+}
+
+.modal.open .modal-box {
+    transform: none;
+}
+
+/* ----- Loading and empty states ----- */
+.spinner {
+    width: 28px;
+    height: 28px;
+    margin: 18px auto;
+    border: 3px solid #3a4488;
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.empty {
+    padding: 34px 18px;
+    background: #ffffff06;
+}
+
+.empty p {
+    margin: 4px 0;
+}
+
+.empty .btn {
+    display: inline-block;
+    margin-top: 12px;
+}
+
+.empty-wide {
+    width: 100%;
+}
+
+.remove-btn {
+    width: 100%;
+    margin-top: 6px;
+}
+
+/* ----- Phones and touch screens ----- */
+@media (hover: none) {
+    .quick {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+    }
+
+    .quick button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}
+
+@media (max-width:600px) {
+    #seats {
+        grid-template-columns: repeat(15, 30px);
+        overflow-x: auto;
+        justify-content: start;
+        padding-bottom: 6px;
+    }
+
+    #menuBtn {
+        padding: 8px 10px;
+    }
+
+    .modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .modal-box {
+        max-height: 92vh;
+        border-radius: 16px 16px 0 0;
+        transform: translateY(40px);
+    }
+
+    h2 {
+        font-size: 1.15rem;
+    }
+
+    .hero {
+        min-height: 220px;
+        padding: 22px;
+    }
+
+    .stats b {
+        font-size: 22px;
+    }
+}
+
+/* ----- Respect people who turn animations off ----- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}
+
+
+/* =====================================================================
+   THEATER: booking panel, seat map, payment pop-up, tickets
+   ===================================================================== */
+.book-movie {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.book-poster {
+    width: 120px;
+    flex: none;
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+    background: linear-gradient(160deg, #4b55b8, #161c45) center / cover no-repeat;
+}
+
+.book-info {
+    min-width: 0;
+}
+
+.book-info h2 {
+    margin: 0 0 6px;
+    border: 0;
+}
+
+.book-info p {
+    margin: 4px 0;
+    color: #c9cffc;
+}
+
+#bookOverview {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#bookBody[hidden], #bookEmpty[hidden] {
+    display: none;
+}
+
+#bookEmpty {
+    margin: 0;
+    padding: 36px 16px;
+    text-align: center;
+}
+
+.times button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.seat-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 24px;
+    align-items: flex-start;
+    margin-top: 14px;
+}
+
+.seat-legend {
+    flex: 0 0 150px;
+}
+
+.seat-legend h3 {
+    margin: 0 0 12px;
+}
+
+.seat-legend p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+.swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-grid;
+    place-items: center;
+    font-style: normal;
+    font-size: 12px;
+    flex: none;
+}
+
+.swatch.free, .swatch.wheel {
+    background: #6f84d8;
+    color: #fff;
+}
+
+.swatch.mine {
+    background: #e5283c;
+}
+
+.swatch.gone {
+    background: #2a336e;
+}
+
+.seat-map {
+    flex: 1 1 340px;
+    min-width: 0;
+}
+
+.screen {
+    text-align: center;
+    padding: 6px 0;
+    margin: 0 0 14px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    background: #3a4488;
+    color: #fff;
+    border-radius: 40px 40px 0 0;
+}
+
+#seats {
+    display: block;
+    max-width: none;
+    margin: 0;
+}
+
+.seat-row {
+    display: grid;
+    grid-template-columns: 22px repeat(15, minmax(0, 1fr));
+    gap: 5px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.row-label {
+    text-align: center;
+    font-size: 13px;
+    color: #c9cffc;
+}
+
+.seat.wheelchair {
+    font-size: 11px;
+    line-height: 1;
+    padding: 0;
+}
+
+.summary p span:first-child {
+    color: #aab3ec;
+}
+
+/* ----- Payment pop-up ----- */
+#payModal {
+    z-index: 70;
+}
+
+#payModal .modal-box {
+    max-width: 520px;
+}
+
+#payModal h2 {
+    margin: 0 0 14px;
+    border: 0;
+}
+
+.pay-receipt {
+    background: #141a40;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 6px 16px;
+    margin-bottom: 4px;
+}
+
+.pay-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 9px 0;
+    border-bottom: 1px solid #ffffff14;
+    font-size: 15px;
+}
+
+.pay-row span {
+    color: #aab3ec;
+    flex: none;
+}
+
+.pay-row b {
+    text-align: right;
+    color: #fff;
+    font-weight: 600;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.pay-row.pay-total {
+    border-bottom: 0;
+    padding: 12px 0 8px;
+}
+
+.pay-row.pay-total span {
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.pay-row.pay-total b {
+    font-size: 22px;
+    color: #8f9bff;
+}
+
+#payModal .pay-label {
+    display: block;
+    margin: 16px 0 7px;
+    font-size: 14px;
+    color: #c9cffc;
+}
+
+.pay-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.pay-method {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 12px 8px;
+    cursor: pointer;
+    color: #fff;
+    background: #1a2252;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    transition: border-color 0.15s, background-color 0.15s, transform 0.15s;
+}
+
+.pay-method b {
+    font-size: 16px;
+}
+
+.pay-method small {
+    color: #aab3ec;
+    font-size: 12px;
+}
+
+.pay-method:hover {
+    border-color: #6f7bd8;
+}
+
+.pay-method:active {
+    transform: scale(0.97);
+}
+
+.pay-method.on {
+    border-color: #8f9bff;
+    background: #27307a;
+    box-shadow: 0 0 0 3px #4b55b855;
+}
+
+#payModal input {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+    color: #fff;
+    background: #0f1530;
+    border: 1px solid #4b55b8;
+    border-radius: 10px;
+}
+
+.pay-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.pay-note {
+    margin: 16px 0 0;
+    font-size: 13px;
+    color: #aab3ec;
+    text-align: center;
+}
+
+#payModal .error {
+    min-height: 20px;
+    margin: 8px 0 0;
+    text-align: center;
+}
+
+#payModal .btn.wide {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.item.booking {
+    align-items: center;
+}
+
+@media (max-width:600px) {
+    .seat-map {
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+
+    .seat-row {
+        grid-template-columns: 22px repeat(15, 26px);
+        min-width: max-content;
+    }
+
+    .seat-legend {
+        flex: 1 1 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 12px;
+    }
+
+    .seat-legend h3 {
+        grid-column: 1 / -1;
+        margin-bottom: 4px;
+    }
+
+    .pay-two {
+        grid-template-columns: 1fr;
+    }
+
+    .pay-methods {
+        gap: 8px;
+    }
+
+    .book-poster {
+        width: 90px;
+    }
+}
+
+/* Keep the top of the booking panel visible below the sticky menu after "Book Now" */
+#bookPanel {
+    scroll-margin-top: 84px;
+}
+
+@media (max-width:850px) {
+    #bookPanel {
+        scroll-margin-top: 214px;
+    }
+}
+
+/* ----- Top 10 TV Shows slideshow ----- */
+.slideshow {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.slideshow .hero {
+    display: none;
+    margin-bottom: 0;
+    min-height: 300px;
+}
+
+.slideshow .hero.active {
+    display: flex;
+    animation: slideFade 0.6s ease;
+}
+
+@keyframes slideFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: #0b1124cc;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.slide-arrow:hover {
+    background: var(--accent);
+}
+
+.slide-arrow.prev { left: 12px; }
+.slide-arrow.next { right: 12px; }
+
+.slide-dots {
+    position: absolute;
+    right: 24px;
+    bottom: 16px;
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.slide-dots button {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: #ffffff66;
+    cursor: pointer;
+}
+
+.slide-dots button.active {
+    background: #fff;
+    transform: scale(1.3);
+}
+
+@media (max-width: 700px) {
+    .slide-arrow { display: none; }
+    .slide-dots { right: 50%; transform: translateX(50%); }
+}
+
+
+/* ----- Clickable lists and directors ----- */
+.list-link {
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.list-link:hover, .list-link:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.list-link:focus-visible {
+    outline: 2px solid var(--accent);
+}
+
+.three > .box.list-link h3 {
+    color: var(--accent);
+}
+
+#listModal .modal-box.wide {
+    max-width: 920px;
+}
+
+.list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 18px 16px;
+    padding: 6px 4px 10px;
+}
+
+.list-grid .card {
+    width: auto;
+}
+
+.list-note {
+    grid-column: 1 / -1;
+    opacity: 0.8;
+}
+
+#lPic[hidden] {
+    display: none;
+}
+
+#lActions {
+    margin-top: 12px;
+}
+
+#lDesc {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+
+/* ----- Edit Profile pop-up, member pages, clickable stats ----- */
+.edit-box {
+    max-width: 480px;
+}
+
+.edit-box label {
+    display: block;
+    margin: 16px 0 6px;
+    font-weight: bold;
+}
+
+.edit-box input[type=text] {
+    width: 100%;
+}
+
+.edit-box textarea {
+    min-height: 80px;
+}
+
+.edit-photo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 12px 0 4px;
+}
+
+.edit-photo .avatar {
+    width: 96px;
+    height: 96px;
+    font-size: 38px;
+    flex: none;
+}
+
+.edit-photo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.edit-photo-actions small {
+    flex-basis: 100%;
+    opacity: 0.8;
+}
+
+.edit-username {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-username span {
+    font-size: 18px;
+    opacity: 0.7;
+}
+
+.edit-error {
+    color: #ff8a8a;
+    min-height: 1.3em;
+    margin: 12px 0 0;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.avatar.has-photo, .mini-avatar.has-photo {
+    background-size: cover;
+    background-position: center;
+    font-size: 0;
+}
+
+.stat-link {
+    cursor: pointer;
+    border-radius: 8px;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.stat-link:hover, .stat-link:focus-visible {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.stat-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+
+#profile .block, #member .block {
+    scroll-margin-top: 90px;
+}
+
+.flash-section {
+    animation: flashSection 1.4s ease;
+}
+
+@keyframes flashSection {
+    0%, 60% { box-shadow: 0 0 0 3px var(--accent); border-radius: 10px; }
+    100% { box-shadow: 0 0 0 3px transparent; border-radius: 10px; }
+}
+
+.person-row {
+    cursor: pointer;
+    gap: 12px;
+}
+
+.person-row:hover {
+    border-color: var(--accent);
+}
+
+.person-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.mini-avatar {
+    width: 42px;
+    height: 42px;
+    flex: none;
+    border-radius: 50%;
+    background: #3a4488;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+.user-link {
+    cursor: pointer;
+    color: var(--accent);
+}
+
+.user-link:hover {
+    text-decoration: underline;
+}
+
+#pmBody .item, #pmBody h3 {
+    margin-top: 8px;
+}
+
+.slot-poster.static {
+    cursor: default;
+}
+
+
+/* ===== NEW EPISODES THIS WEEK: scrollable list ===== */
+.two > section { min-width: 0; }
+
+#episodeList {
+    max-height: 430px;
+    overflow-y: auto;
+    padding-right: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
+    overscroll-behavior: contain;
+}
+
+#episodeList::-webkit-scrollbar { width: 8px; }
+#episodeList::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 8px; }
+#episodeList::-webkit-scrollbar-track { background: transparent; }
+
+#episodeList .item.with-pic > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* ===== TOP 10 TV SLIDESHOW: layout fixes ===== */
+/* keep text clear of the side arrows on desktop */
+.slideshow .hero { padding-left: 64px; padding-right: 64px; }
+
+@media (max-width: 700px) {
+    .slideshow .hero {
+        min-height: 0;
+        padding: 22px 18px 52px;   /* extra room at the bottom for the dots */
+        gap: 8px;
+    }
+
+    .slideshow .hero h1 { font-size: 1.6rem; line-height: 1.15; }
+    .slideshow .hero p { font-size: 0.9rem; line-height: 1.4; }
+
+    .slideshow .hero > div {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 4px;
+    }
+
+    .slideshow .hero .btn { margin: 0; padding: 8px 14px; font-size: 0.9rem; }
+
+    .slide-dots {
+        bottom: 18px;
+        gap: 7px;
+    }
+}
+
+
+/* ===== BROWSE PAGE: results wrap into a grid (so "Load more" adds rows below) ===== */
+#browseGrid.row.wrap {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    gap: 22px 14px;
+    margin: 0;
+    padding: 6px 0 10px;
+}
+
+#browse .slider { position: static; }
+
+#loadMore[hidden] {
+    display: none;
+}
+
+
+/* ===== HOME BANNER: keep the faces in view ===== */
+/* the banner is wide and short, so a centered background crops off the heads;
+   anchor it near the top instead */
+.hero[data-title="The Shawshank Redemption"] {
+    background-position: center 12% !important;
+}
+
+
+/* ===== TV SLIDESHOW: keep heads in view ===== */
+/* same crop problem as the home banner: anchor toward the top instead of dead center */
+.slideshow .hero {
+    background-position: center 18% !important;
+}
+
+/* per-show tweaks (smaller % = shows more of the top, bigger % = more of the bottom) */
+.slideshow .hero[data-title="Breaking Bad"] { background-position: center 8% !important; }
+
+
+/* ===== IN THEATER: Book Now buttons all line up ===== */
+/* cards in the Now Showing row become columns of equal height; the button sticks to the bottom,
+   so it lines up even when a title wraps onto two lines */
+#theater .row[data-source="/movie/now_playing"] .card {
+    display: flex;
+    flex-direction: column;
+}
+
+#theater .row[data-source="/movie/now_playing"] .card .poster { flex: none; }
+
+#theater .row[data-source="/movie/now_playing"] .card small {
+    display: block;
+    margin-bottom: 12px;
+}
+
+#theater .book-btn {
+    margin-top: auto;
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== IN THEATER: booking panel ===== */
+/* don't stretch the panel to the full page height while it is empty */
+#bookPanel {
+    align-self: start;
+}
+
+#bookEmpty {
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 28px 24px;
+    line-height: 1.5;
+    color: #c9cffc;
+}
+
+#bookEmpty::before {
+    content: "🎟️";
+    font-size: 44px;
+    margin-bottom: 6px;
+}
+
+#bookEmpty::after {
+    content: "Pick a poster, then choose your cinema, date, time and seats.";
+    font-size: 13px;
+    opacity: 0.7;
+    max-width: 280px;
+}
+
+#bookEmpty[hidden] { display: none; }
